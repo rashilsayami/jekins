@@ -34,6 +34,12 @@ pipeline {
             }
         }
 
+        stage('Remove Old Test Container (if any)') {
+            steps {
+                sh "docker rm -f ${CONTAINER_NAME} || true"
+            }
+        }
+
         stage('Run Container (test)') {
             steps {
                 sh "docker run -d -p 9090:8080 --name ${CONTAINER_NAME} ${IMAGE_NAME}:${BUILD_NUMBER}"
