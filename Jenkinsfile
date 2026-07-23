@@ -79,7 +79,7 @@ pipeline {
                 sh """
                     docker pull ${IMAGE_NAME}:latest
                     docker rm -f go-hello-world-prod || true
-                    docker run -d -p 8080:8080 --name go-hello-world-prod --restart unless-stopped ${IMAGE_NAME}:latest
+                    docker run -d -p 8081:8080 --name go-hello-world-prod --restart unless-stopped ${IMAGE_NAME}:latest
                 """
             }
         }
