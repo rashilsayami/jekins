@@ -9,7 +9,7 @@ import (
 func helloHandler(w http.ResponseWriter, r *http.Request) {
 	clientIP := r.RemoteAddr
 	w.Header().Set("Content-Type", "text/plain")
-	fmt.Fprintf(w, "this is spartra %s\n", clientIP)
+	fmt.Fprintf(w, "this is spider man %s\n", clientIP)
 }
 
 func main() {
