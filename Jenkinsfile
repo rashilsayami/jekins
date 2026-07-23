@@ -9,7 +9,6 @@ pipeline {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds')
         IMAGE_NAME     = "rashilmanandhar/go-hello-world"
         CONTAINER_NAME = "go-hello-world-test"
-        DEPLOY_DIR     = "/opt/go-hello-world"   // where docker-compose.yml lives on the server
     }
 
     stages {
@@ -78,9 +77,9 @@ pipeline {
         stage('Deploy to Server') {
             steps {
                 sh """
-                    cd ${DEPLOY_DIR}
-                    docker compose pull
-                    docker compose up -d --force-recreate
+                    docker pull ${IMAGE_NAME}:latest
+                    docker rm -f go-hello-world-prod || true
+                    docker run -d -p 8080:8080 --name go-hello-world-prod --restart unless-stopped ${IMAGE_NAME}:latest
                 """
             }
         }
